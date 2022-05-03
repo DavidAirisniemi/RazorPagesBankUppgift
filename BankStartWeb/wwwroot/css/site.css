@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    color: white;
 }
 
 html {
@@ -9,6 +10,6 @@ html {
 
 body {
   margin-bottom: 60px;
-  background-color: black;
+  background-color: gray;
   min-height: 100%;
 }

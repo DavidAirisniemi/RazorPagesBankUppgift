@@ -1,0 +1,44 @@
+﻿@page
+@model BankStartWeb.Pages.Customers.CustomerDetailsModel
+@{
+}
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Phonenumber</th>
+        <th>EmailAddress</th>
+        <th>Date of birth</th>
+    </tr>
+    <tr>
+        <td>@Model.Customer.Givenname</td>
+        <td>@Model.Customer.Surname</td>
+        <td>@Model.Customer.City</td>
+        <td>@Model.Customer.Country</td>
+        <td>@Model.Customer.Telephone</td>
+        <td>@Model.Customer.EmailAddress</td>
+        <td>@Model.Customer.Birthday</td>
+    </tr>
+</table>
+<h2>Bank accounts</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Account type</th>
+        <th>Created</th>
+        <th>Balance</th>
+    </tr>
+    @foreach (var Account in Model.Accounts)
+    {
+        <tr>
+            <td>@Account.Id</td>
+            <td>@Account.AccountType</td>
+            <td>@Account.Created</td>
+            <td>@Account.Balance</td>
+        </tr>
+    }
+
+</table>
