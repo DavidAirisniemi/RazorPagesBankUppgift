@@ -3,6 +3,7 @@
 @{
 }
 
+<h1>Customer details</h1>
 <table>
     <tr>
         <th>Name</th>
@@ -31,14 +32,14 @@
         <th>Created</th>
         <th>Balance</th>
     </tr>
-    @foreach (var Account in Model.Accounts)
+    @foreach (var account in Model.Accounts)
     {
-        <tr>
-            <td>@Account.Id</td>
-            <td>@Account.AccountType</td>
-            <td>@Account.Created</td>
-            <td>@Account.Balance</td>
-        </tr>
+            <tr>
+                <td>@account.Id</td>
+                <td>@account.AccountType</td>
+                <td>@account.Created</td>
+                <td>@account.Balance</td>
+                <td><a asp-page="Transactions" asp-route-id="@account.Id">Details</a></td>
+            </tr>
     }
-
 </table>

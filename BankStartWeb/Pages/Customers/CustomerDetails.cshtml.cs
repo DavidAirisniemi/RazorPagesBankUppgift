@@ -8,8 +8,8 @@ namespace BankStartWeb.Pages.Customers
     public class CustomerDetailsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public List<AccountViewModel> Accounts { get; set; }
         public CustomerViewModel Customer { get; set; }
+        public List<AccountViewModel> Accounts { get; set; }
 
         public CustomerDetailsModel(ApplicationDbContext context)
         {
@@ -19,7 +19,7 @@ namespace BankStartWeb.Pages.Customers
 
         public void OnGet(int id)
         {
-            var tempCustomer = _context.Customers.Include(c => c.Accounts).First(customer => customer.Id == id);
+            var tempCustomer = _context.Customers.Include(customer => customer.Accounts).First(customer => customer.Id == id);
             Customer = new CustomerViewModel
             {
                 Id = tempCustomer.Id,
@@ -38,11 +38,6 @@ namespace BankStartWeb.Pages.Customers
                 Created = account.Created,
                 Balance = account.Balance
             }).ToList();
-
-
-
-
-
         }
     }
 

@@ -2,3 +2,22 @@
 @model BankStartWeb.Pages.Customers.TransactionsModel
 @{
 }
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Operation</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>New balance</th>
+    </tr>    
+        <tr>
+        <td>@Model.Transactions.Id</td>
+        <td>@Model.Transactions.Type</td>
+        <td>@Model.Transactions.Operation</td>
+        <td>@Model.Transactions.Date</td>
+        <td>@Model.Transactions.Amount</td>
+        <td>@Model.Transactions.NewBalance</td>
+    </tr>   
+</table>

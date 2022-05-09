@@ -6,16 +6,15 @@
 <table class="table">
     <tr>
         <th>Name</th>
-        <th>Last Name</th>
+        <th>Last name</th>
     </tr>
-    @foreach (var Customer in Model.Customers)
+    @foreach (var customer in Model.Customers)
     {
         <tr>
 
-            <td>@Customer.Givenname</td>
-            <td>@Customer.Surname</td>
-            <td><a asp-page="CustomerDetails" asp-route-id="@Customer.Id" >gå till konton</a></td>
+            <td>@customer.Givenname</td>
+            <td>@customer.Surname</td>
+            <td><a asp-page="CustomerDetails"asp-route-id="@customer.Id">Details</a></td>
         </tr>
-
     }
 </table>
