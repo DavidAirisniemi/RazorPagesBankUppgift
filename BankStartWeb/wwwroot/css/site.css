@@ -4,12 +4,44 @@
 }
 
 html {
-  position: relative;
-  height: 100%;
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 50px;
 }
 
 body {
-  margin-bottom: 60px;
-  background-color: gray;
-  min-height: 100%;
+    margin-bottom: 60px;
+    background-color: gray;
+    height: 100%;
 }
+
+input {
+    color: black;
+}
+
+
+
+/*
+---------------------------------------------
+Footer
+---------------------------------------------
+*/
+
+footer {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(100, 100, 100);
+    text-align: center;
+
+}
+
+    footer p {
+        color: white;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+        footer p a {
+            color: lightblue !important;
+        }

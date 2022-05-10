@@ -8,6 +8,8 @@ namespace BankStartWeb.Pages.Customers
     {
         private readonly ApplicationDbContext _context;
         public List<CustomerViewModel> Customers { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string CustomerSearch { get; set; }
 
         public IndexModel(ApplicationDbContext context)
         {
@@ -20,13 +22,27 @@ namespace BankStartWeb.Pages.Customers
                 Id = customer.Id,
                 Givenname = customer.Givenname,
                 Surname = customer.Surname,
+                NationalId = customer.NationalId,
+                Streetaddress = customer.Streetaddress,
                 City = customer.City,
                 Country = customer.Country,
                 Telephone = customer.Telephone,
                 EmailAddress = customer.EmailAddress, 
                 Birthday = customer.Birthday
             }).ToList();
+
+            if (!string.IsNullOrEmpty(CustomerSearch))
+            {
+                CustomerSearch = CustomerSearch.ToLower();
+                Customers = Customers.Where(customer =>
+                customer.Id.ToString().Contains(CustomerSearch) ||
+                customer.Givenname.ToLower().Contains(CustomerSearch) ||
+                customer.Surname.ToLower().Contains(CustomerSearch) ||
+                customer.City.ToLower().Contains(CustomerSearch)).ToList(); 
+            }
         }
+
+       
     }
 
     public class CustomerViewModel
@@ -34,6 +50,8 @@ namespace BankStartWeb.Pages.Customers
         public int Id { get; set; }
         public string Givenname { get; set; }
         public string Surname { get; set; }
+        public string NationalId { get; set; }
+        public string Streetaddress { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
         public string Telephone { get; set; }

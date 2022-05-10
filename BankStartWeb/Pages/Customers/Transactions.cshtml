@@ -3,7 +3,11 @@
 @{
 }
 
-<table>
+<a asp-page="/Transaction/Deposit" asp-route-id="@Model.Id">Deposit</a>
+<a asp-page="/Transaction/Withdraw" asp-route-id="@Model.Id">Withdraw</a>
+<a asp-page="/Transaction/Transfer" asp-route-id="@Model.Id">Transfer</a>
+
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Type</th>
@@ -11,13 +15,16 @@
         <th>Date</th>
         <th>Amount</th>
         <th>New balance</th>
-    </tr>    
+    </tr>
+    @foreach (var transaction in Model.Transactions)
+    {
         <tr>
-        <td>@Model.Transactions.Id</td>
-        <td>@Model.Transactions.Type</td>
-        <td>@Model.Transactions.Operation</td>
-        <td>@Model.Transactions.Date</td>
-        <td>@Model.Transactions.Amount</td>
-        <td>@Model.Transactions.NewBalance</td>
-    </tr>   
+            <td>@transaction.Id</td>
+            <td>@transaction.Type</td>
+            <td>@transaction.Operation</td>
+            <td>@transaction.Date</td>
+            <td>@transaction.Amount</td>
+            <td>@transaction.NewBalance</td>
+        </tr>
+    }
 </table>

@@ -10,6 +10,7 @@ namespace BankStartWeb.Pages.Customers
         private readonly ApplicationDbContext _context;
         public CustomerViewModel Customer { get; set; }
         public List<AccountViewModel> Accounts { get; set; }
+        public string TotalBalance { get; set; }
 
         public CustomerDetailsModel(ApplicationDbContext context)
         {
@@ -38,6 +39,8 @@ namespace BankStartWeb.Pages.Customers
                 Created = account.Created,
                 Balance = account.Balance
             }).ToList();
+
+            TotalBalance = tempCustomer.Accounts.Sum(sum => sum.Balance).ToString("C");
         }
     }
 

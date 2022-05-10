@@ -4,7 +4,7 @@
 }
 
 <h1>Customer details</h1>
-<table>
+<table class="table">
     <tr>
         <th>Name</th>
         <th>Last name</th>
@@ -13,6 +13,7 @@
         <th>Phonenumber</th>
         <th>EmailAddress</th>
         <th>Date of birth</th>
+        <th>Total Balance</th>
     </tr>
     <tr>
         <td>@Model.Customer.Givenname</td>
@@ -22,15 +23,17 @@
         <td>@Model.Customer.Telephone</td>
         <td>@Model.Customer.EmailAddress</td>
         <td>@Model.Customer.Birthday</td>
+        <td>@Model.TotalBalance</td>
     </tr>
 </table>
 <h2>Bank accounts</h2>
-<table>
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Account type</th>
         <th>Created</th>
         <th>Balance</th>
+        <th></th>
     </tr>
     @foreach (var account in Model.Accounts)
     {

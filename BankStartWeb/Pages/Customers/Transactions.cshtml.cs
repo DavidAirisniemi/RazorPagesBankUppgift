@@ -1,6 +1,7 @@
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankStartWeb.Pages.Customers
 {
@@ -8,15 +9,18 @@ namespace BankStartWeb.Pages.Customers
     {
         private readonly ApplicationDbContext _context;
         public List<TransactionsViewModel> Transactions { get; set; }
+        public int Id { get; set; }
 
         public TransactionsModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public void OnGet()
+        public void OnGet(int id)
         {
-            Transactions = _context.Transactions.Select(transaction => new TransactionsViewModel
+            Id = id;
+            var account = _context.Accounts.Include(account => account.Transactions).First(account => account.Id == id);
+            Transactions = account.Transactions.Select(transaction => new TransactionsViewModel
             {
                 Id = transaction.Id,
                 Type = transaction.Type,

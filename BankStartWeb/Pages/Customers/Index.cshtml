@@ -2,18 +2,30 @@
 @model BankStartWeb.Pages.Customers.IndexModel
 @{
 }
+<form method="GET">
+    <input asp-for="CustomerSearch" />
+</form>
+
 
 <table class="table">
     <tr>
-        <th>Name</th>
+        <th>id</th>
+        <th>First name</th>
         <th>Last name</th>
+        <th>Social security number</th>
+        <th>Address</th>
+        <th>City</th>
+        <th></th>
     </tr>
     @foreach (var customer in Model.Customers)
     {
         <tr>
-
+            <td>@customer.Id</td>
             <td>@customer.Givenname</td>
             <td>@customer.Surname</td>
+            <td>@customer.NationalId</td>
+            <td>@customer.Streetaddress</td>
+            <td>@customer.City</td>
             <td><a asp-page="CustomerDetails"asp-route-id="@customer.Id">Details</a></td>
         </tr>
     }
