@@ -3,9 +3,11 @@
 @{
 }
 
-<a asp-page="/Transaction/Deposit" asp-route-id="@Model.Id">Deposit</a>
-<a asp-page="/Transaction/Withdraw" asp-route-id="@Model.Id">Withdraw</a>
-<a asp-page="/Transaction/Transfer" asp-route-id="@Model.Id">Transfer</a>
+<a asp-page="/Transaction/Deposit" asp-route-id="@Model.TransactionId">Deposit</a>
+<a asp-page="/Transaction/Withdraw" asp-route-id="@Model.TransactionId">Withdraw</a>
+<a asp-page="/Transaction/Transfer" asp-route-id="@Model.TransactionId">Transfer</a>
+
+<a asp-page="/Customers/CustomerDetails" asp-route-id="@Model.CustomerId">Back</a>
 
 <table class="table">
     <tr>
@@ -16,7 +18,7 @@
         <th>Amount</th>
         <th>New balance</th>
     </tr>
-    @foreach (var transaction in Model.Transactions)
+    @*@foreach (var transaction in Model.Transactions)
     {
         <tr>
             <td>@transaction.Id</td>
@@ -26,5 +28,43 @@
             <td>@transaction.Amount</td>
             <td>@transaction.NewBalance</td>
         </tr>
-    }
+    }*@
+    <tbody id="posts-table">
+        
+    </tbody>
 </table>
+<a href="javascript:fetchMore()">Show more</a>
+
+
+@section Scripts
+{
+    <script>
+        pageNum = 1;
+
+        function fetchMore() {
+            fetch("Transactions?handler=ViewMore&pagenum=" + pageNum + "&id=@Model.TransactionId&customerId=@Model.CustomerId" )
+                .then((response) => response.json())
+                .then((json) => {
+                        pageNum += 1;
+                        json.items.forEach(tableElements);
+                    }
+                );
+        }
+
+        function tableElements(element) {
+            document.getElementById('posts-table').innerHTML +=
+                `<tr>
+                    <td>${element.id}</td>
+                    <td>${element.operation}</td>
+                    <td>${element.date}</td>
+                    <td>${element.amount}</td>
+                    <td>${element.newBalance}</td>
+                </tr>`;
+        }
+
+        document.addEventListener("DOMContentLoaded",
+            function() {
+                fetchMore();
+            });
+    </script>
+}

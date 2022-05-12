@@ -2,3 +2,10 @@
 @model BankStartWeb.Pages.Transaction.TransferModel
 @{
 }
+
+<form method="post">
+    <input asp-for="Amount"/>
+    <span asp-validation-for="Amount" class="field-validation-error"></span>
+    <input asp-for="TargetAccountId"/>
+    <button type="submit">Transfer</button>
+</form>

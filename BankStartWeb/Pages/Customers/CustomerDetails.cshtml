@@ -3,6 +3,8 @@
 @{
 }
 
+<a asp-page="/Customers/Index">Back</a>
+
 <h1>Customer details</h1>
 <table class="table">
     <tr>
@@ -42,7 +44,7 @@
                 <td>@account.AccountType</td>
                 <td>@account.Created</td>
                 <td>@account.Balance</td>
-                <td><a asp-page="Transactions" asp-route-id="@account.Id">Details</a></td>
+                <td><a asp-page="Transactions" asp-route-id="@account.Id" asp-route-customerId="@Model.Customer.Id">Details</a></td>
             </tr>
     }
 </table>

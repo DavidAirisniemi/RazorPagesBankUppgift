@@ -4,6 +4,7 @@
 }
 
 <form method="post">
-    <input asp-for="Amount" />
+    <input asp-for="Amount"/>
     <button type="submit">Withdraw</button>
+    <span asp-validation-for="Amount" class="field-validation-error"></span>
 </form>

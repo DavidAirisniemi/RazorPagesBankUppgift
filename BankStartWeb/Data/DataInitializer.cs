@@ -174,4 +174,29 @@ public class DataInitializer
         }
         return account;
     }
+    private void SeedRoles()
+    {
+        CreateRoles("", "");
+    }
+
+    private void CreateRoles(string name, string normalizedName)
+    {
+        if (_dbContext.Roles.Any(role => role.NormalizedName == normalizedName))
+        {
+            return;
+        }
+        _dbContext.Roles.Add(new IdentityRole { Name = name, NormalizedName = normalizedName });
+        _dbContext.SaveChanges();
+    }
+
+    private void SeedAdmins()
+    {
+
+    }
+
+    private void CreateAdmins()
+    {
+
+    }
+
 }

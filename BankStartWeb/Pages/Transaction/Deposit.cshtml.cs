@@ -19,7 +19,6 @@ namespace BankStartWeb.Pages.Transaction
 
         public void OnGet(int id)
         {
-            //var tempCustomer = _context.Customers.Include(customer => customer.Accounts).First(customer => customer.Id == id);
 
         }
 
@@ -28,9 +27,19 @@ namespace BankStartWeb.Pages.Transaction
             if (ModelState.IsValid)
             {
                 var account = _context.Accounts.First(account => account.Id == id);
+                var transaction = new Data.Transaction
+                {
+                    Type = "Debit",
+                    Operation = "Deposit",
+                    Date = DateTime.Now,
+                    Amount = Amount,
+                    NewBalance = account.Balance + Amount
+
+                };
+                account.Transactions.Add(transaction);
                 account.Balance = account.Balance + Amount;
                 _context.SaveChanges();
-                return RedirectToPage("/Customers/CustomerDetails", new {id});
+                return RedirectToPage("/Customers/Transactions", new { id });
             }
             return Page();
         }

@@ -23,9 +23,24 @@ namespace BankStartWeb.Pages.Transaction
             if (ModelState.IsValid)
             {
                 var account = _context.Accounts.First(account => account.Id == id);
+                if (account.Balance < Amount)
+                {
+                    ModelState.AddModelError(nameof(Amount), "Balance not available");
+                    return Page();
+                }
+                var transaction = new Data.Transaction
+                {
+                    Type = "Credit",
+                    Operation = "Withdrawal",
+                    Date = DateTime.Now,
+                    Amount = Amount,
+                    NewBalance = account.Balance - Amount
+
+                };
+                account.Transactions.Add(transaction);
                 account.Balance = account.Balance - Amount;
                 _context.SaveChanges();
-                return RedirectToPage("/Customers/CustomerDetails", new { id });
+                return RedirectToPage("/Customers/Transactions", new { id });
             }
             return Page();
         }

@@ -1,4 +1,5 @@
 using BankStartWeb.Data;
+using BankStartWeb.Infrastructure.Paging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,14 +11,22 @@ namespace BankStartWeb.Pages.Customers
         public List<CustomerViewModel> Customers { get; set; }
         [BindProperty(SupportsGet = true)]
         public string CustomerSearch { get; set; }
+        public int PageNum { get; set; }
 
         public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
-        public void OnGet()
+        public void OnGet(int pagenum = 1)
         {
-            Customers = _context.Customers.Take(50).Select(customer => new CustomerViewModel
+            PageNum = pagenum;
+
+            var cust = _context.Customers.AsQueryable();
+            
+            
+            var pageResult = cust.GetPaged(PageNum, 10);
+
+            Customers = pageResult.Results.Select(customer => new CustomerViewModel
             {
                 Id = customer.Id,
                 Givenname = customer.Givenname,

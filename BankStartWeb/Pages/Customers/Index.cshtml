@@ -30,3 +30,11 @@
         </tr>
     }
 </table>
+@if (Model.PageNum > 1)
+{
+    <a asp-page="/Customers/Index" asp-route-pagenum="@(Model.PageNum - 1)">Previous</a>
+}
+@if (Model.PageNum <= 49)
+{
+    <a asp-page="/Customers/Index" asp-route-pagenum="@(Model.PageNum + 1)">Next</a>
+}
