@@ -1,6 +1,7 @@
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankStartWeb.Pages.Transaction
 {
@@ -9,6 +10,7 @@ namespace BankStartWeb.Pages.Transaction
         private readonly ApplicationDbContext _context;
 
         [BindProperty]
+        [Range(1, 100000)]
         public int Amount { get; set; }
         public WithdrawModel(ApplicationDbContext context)
         {
@@ -20,6 +22,11 @@ namespace BankStartWeb.Pages.Transaction
 
         public IActionResult OnPost(int id)
         {
+            if (Amount < 1)
+            {
+                ModelState.AddModelError(nameof(Amount), "Amount is negative");
+            }
+
             if (ModelState.IsValid)
             {
                 var account = _context.Accounts.First(account => account.Id == id);

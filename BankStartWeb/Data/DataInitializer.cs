@@ -22,6 +22,8 @@ public class DataInitializer
     {
         _dbContext.Database.Migrate();
         SeedCustomers();
+        SeedRoles();
+        SeedAdmins();
     }
 
     private void SeedCustomers()
@@ -176,7 +178,8 @@ public class DataInitializer
     }
     private void SeedRoles()
     {
-        CreateRoles("", "");
+        CreateRoles("Cashier", "CASHIER");
+        CreateRoles("Administrator", "ADMINISTRATOR");
     }
 
     private void CreateRoles(string name, string normalizedName)
@@ -191,12 +194,21 @@ public class DataInitializer
 
     private void SeedAdmins()
     {
-
+        CreateAdmins("DavidAirisniemi", "david.airisniemi@hotmail.com", "Hejsan123#", new string[] { "ADMINISTRATOR", "CASHIER" });
+        CreateAdmins("StefanHolmbergAdmin", "stefan.holmberg@systementor.se", "Hejsan123#", new string[] { "ADMINISTRATOR" });
+        CreateAdmins("StefanHolmbergCashier", "stefan.holmberg@customer.banken.se", "Hejsan123#", new string[] { "CASHIER" });
     }
 
-    private void CreateAdmins()
+    private void CreateAdmins(string userName, string email, string passWord, string[] roles)
     {
+        if (_dbContext.Users.Any(admin => admin.UserName == userName))
+        {
+            return;
+        }
 
+        var user = new IdentityUser { UserName = userName, Email = email, EmailConfirmed = true };
+        _userManager.CreateAsync(user, passWord).Wait();
+        _userManager.AddToRolesAsync(user, roles).Wait();
+        
     }
-
 }

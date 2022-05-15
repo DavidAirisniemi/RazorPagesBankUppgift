@@ -1,6 +1,7 @@
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankStartWeb.Pages.Transaction
 {
@@ -8,8 +9,12 @@ namespace BankStartWeb.Pages.Transaction
     public class TransferModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+
+        [Range(1, 100000)]
         public int Amount { get; set; }
+
         public int TargetAccountId { get; set; }
+
         public TransferModel(ApplicationDbContext context)
         {
             _context = context;
@@ -21,6 +26,11 @@ namespace BankStartWeb.Pages.Transaction
 
         public IActionResult OnPost(int id)
         {
+            if (Amount < 1)
+            {
+                ModelState.AddModelError(nameof(Amount), "Amount is negative");
+            }
+
             if (ModelState.IsValid)
             {
                 var account = _context.Accounts.First(account => account.Id == id);
